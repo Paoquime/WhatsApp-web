@@ -365,9 +365,3 @@ aside.w-contacts header {
 .w-recent-chats::-webkit-scrollbar-thumb {
   background-color: rgba(0,0,0,.2);
 }
-
-#bubbleGreen {
-	width: 20%;
-	height: 10%;
-	border-style: solid;
-}

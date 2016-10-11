@@ -2,8 +2,9 @@ window.addEventListener("load", function(){
 
 	var msjInput = document.getElementById("mensajes");
 	var boxChat = document.getElementById("chat");
-	var header = document.getElementById("header");
-	var parentText = document.getElementsByClassName(".w-message-text")[0];
+	var perfil = document.getElementsByClassName("avatar");
+	var imgPerfil = document.getElementById("img");
+	var namePerfil = document.getElementById("nameP")
 	var laboratoria = document.getElementById("uLabo");
 	var raymi = document.getElementById("uRaymi");
 	var mariana = document.getElementById("uMariana");
@@ -19,38 +20,42 @@ window.addEventListener("load", function(){
 	var contactos = [laboratoria, raymi, mariana, chama, chamo, andrea, papu, katy, aldo, curricula, jose];
 
 	for(elemento of contactos){
-	 	elemento.addEventListener("click", vaciarChat);
+	  	elemento.addEventListener("click", cambiarUsuario);
 	}
 
-	mensajes.addEventListener("keyup", function(e){
+	msjInput.addEventListener("keyup", function(e){
 		var tecla = e.keyCode;
-		agregarMsj(tecla);
+		if (tecla == 13) {
+			agregarMsj();
+		}
 	});
 
-	function agregarMsj(tecla) {
-		var burbuja = document.createElement("div");
-		burbuja.setAttribute("id", "bubbleGreen");
-		boxChat.appendChild(burbuja);
+	function agregarMsj() {
+		var contentBur = document.createElement("div");
+		contentBur.classList.add("w-message", "w-message-out");
+		boxChat.appendChild(contentBur);
 
-		if (tecla == 13) {
-			burbuja.innerText = msjInput.value;
-		}
+		var burbuja = document.createElement("div");
+		burbuja.classList.add("w-message-text");
+		contentBur.appendChild(burbuja);
+
+		var texto = document.createElement("p");
+		texto.innerText = msjInput.value;
+		burbuja.insertBefore(texto, burbuja.children[0]);
 
 		var fecha = new Date();
 	    var hora = fecha.getHours();
 	    var min = fecha.getMinutes();
 	    var almacenaHora = document.createElement("div");
-	    almacenaHora.classList.add("hora");
+	    almacenaHora.classList.add("time");
 	    almacenaHora.innerText = hora + ":" + min;
-	    almacenaHora.appendChild(burbuja);
+	    burbuja.insertBefore(almacenaHora, burbuja.children[1]);
+
 	}
 
 	function cambiarUsuario(){
-		header.innerHTML = contactos.value;
+		imgPerfil.src = this.childNodes[1].src;
+		namePerfil.textContent = this.childNodes[3].textContent;
 	}
-
-	function vaciarChat(){
-		boxChat.remove();
-	}
-
+	
 });
